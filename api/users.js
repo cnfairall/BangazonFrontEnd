@@ -26,7 +26,7 @@ const createUser = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateUser = (payload) => new Promise((resolve, reject) => {
+const editUser = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/api/users/${payload.id}`, {
     method: 'PUT',
     headers: {
@@ -34,7 +34,7 @@ const updateUser = (payload) => new Promise((resolve, reject) => {
     },
     body: JSON.stringify(payload),
   }).then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
@@ -45,7 +45,7 @@ const deleteUser = (userId) => new Promise((resolve, reject) => {
       'Content-Type': 'application/json',
     },
   }).then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
@@ -86,5 +86,5 @@ const searchCustomers = (query) => new Promise((resolve, reject) => {
 });
 
 export {
-  getSingleUser, createUser, updateUser, deleteUser, getUserStore, searchSellers, searchCustomers,
+  getSingleUser, createUser, editUser, deleteUser, getUserStore, searchSellers, searchCustomers,
 };

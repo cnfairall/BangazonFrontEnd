@@ -1,25 +1,26 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { registerUser } from '../utils/auth'; // Update with path to registerUser
-import { useAuth } from '../utils/context/authContext';
+import { useRouter } from 'next/router';
+import { editUser } from '../api/users';
 
-function RegisterForm() {
-  const { user, updateUser } = useAuth();
-  const [formData, setFormData] = useState({
-    username: '',
-    firstName: '',
-    lastName: '',
-    address: '',
-    imageUrl: '',
-    isSeller: false,
-    uid: user.fbUser.uid,
-  });
+const initialState = {
+  id: 0,
+  username: '',
+};
+
+function UpdateUser({ user }) {
+  const [formData, setFormData] = useState({ initialState });
+  const router = useRouter();
+
+  useEffect(() => {
+    setFormData(user);
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(formData).then(() => updateUser(user.fbUser.uid));
+    editUser(formData).then(router.push('/'));
   };
 
   const handleChange = (e) => {
@@ -114,19 +115,17 @@ function RegisterForm() {
   );
 }
 
-RegisterForm.propTypes = {
+UpdateUser.propTypes = {
   user: PropTypes.shape({
-    fbUser: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      uid: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-      address: PropTypes.string.isRequired,
-      imageUrl: PropTypes.string,
-      isSeller: PropTypes.bool,
-    }).isRequired,
+    id: PropTypes.number.isRequired,
+    uid: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string,
+    isSeller: PropTypes.bool,
   }).isRequired,
 };
 
-export default RegisterForm;
+export default UpdateUser;
