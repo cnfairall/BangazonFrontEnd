@@ -2,13 +2,12 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const openCart = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/api/orders/new`, {
-    method: 'POST',
+const openCart = (userId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/${userId}/cart/open`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
   }).then((response) => response.json())
     .then((data) => resolve(data))
     .catch(reject);

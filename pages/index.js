@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { checkUser, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import RegisterForm from '../components/RegisterForm';
+import { getCart } from '../api/orders';
 
 function Home() {
   const { user } = useAuth();
@@ -10,6 +11,7 @@ function Home() {
 
   useEffect(() => {
     checkUser(user.uid).then((data) => setAuthUser(data[0]));
+    if (user[0].id) { getCart(user[0].id); }
   }, [user.uid]);
 
   const onUpdate = () => {
