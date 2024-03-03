@@ -50,7 +50,7 @@ const deleteUser = (userId) => new Promise((resolve, reject) => {
 });
 
 const getUserStore = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/api/${id}/store`, {
+  fetch(`${endpoint}/api/store/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
