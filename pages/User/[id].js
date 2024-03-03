@@ -14,7 +14,6 @@ function UserProfile() {
 
   return (
     <>
-      <div>hi</div>
       <UserCard user={userObj} />
     </>
   );
