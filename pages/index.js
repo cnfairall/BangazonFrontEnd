@@ -1,17 +1,41 @@
+import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import UserCard from '../components/cards/UserCard';
-import { getSingleUser } from '../api/users';
+import { checkUser, signOut } from '../utils/auth';
+import { useAuth } from '../utils/context/authContext';
+import RegisterForm from '../components/RegisterForm';
 
 function Home() {
-  const userId = 1;
-  const [userObj, setUserObj] = useState({});
+  const { user } = useAuth();
+  const [authUser, setAuthUser] = useState();
 
   useEffect(() => {
-    getSingleUser(userId).then(setUserObj);
-  }, []);
+    checkUser(user.uid).then((data) => setAuthUser(data[0]));
+  }, [user.uid]);
+
+  const onUpdate = () => {
+    checkUser(user.uid).then((data) => setAuthUser(data));
+  };
 
   return (
-    <UserCard user={userObj} />
+    <>
+      {authUser?.uid === user?.uid ? (
+        <div
+          className="text-center d-flex flex-column justify-content-center align-content-center"
+          style={{
+            height: '90vh',
+            padding: '30px',
+            maxWidth: '400px',
+            margin: '0 auto',
+          }}
+        >
+          <h1>Hello {user?.fbUser?.displayName}! </h1>
+          <p>Click the button below to logout!</p>
+          <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
+            Sign Out
+          </Button>
+        </div>
+      ) : (<RegisterForm user={user} onUpdate={onUpdate} />)}
+    </>
   );
 }
 
