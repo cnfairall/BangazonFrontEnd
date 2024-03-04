@@ -17,7 +17,7 @@ function UserProfile() {
     <>
       <UserCard user={store} />
       {store.products?.map((p) => (
-        <ProductCard product={p} />
+        <ProductCard product={p} key={p.id} />
       ))}
     </>
   );

@@ -9,23 +9,23 @@ import PropTypes from 'prop-types';
 export default function UserCard({ user }) {
   return (
     <Card sx={{ maxWidth: 300 }} component="div">
-      <CardMedia sx={{ height: 200 }} image={user.imageUrl} title="user image" />
+      <CardMedia sx={{ height: 200 }} image={user?.imageUrl} title="user image" />
       <CardContent>
         <Typography variant="h5" component="div">
-          {user.firstName} {user.lastName}
+          {user?.firstName} {user?.lastName}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          @{user.username}
+          @{user?.username}
         </Typography>
-        <Typography variant="subtitle1">{user.email}</Typography>
-        <Typography variant="body2">{user.address}</Typography>
-        <Link href={`/user/edit/${user.id}`} passHref>
+        <Typography variant="subtitle1">{user?.email}</Typography>
+        <Typography variant="body2">{user?.address}</Typography>
+        <Link href={`/user/edit/${user?.id}`} passHref>
           <Button>
             <Edit />
           </Button>
         </Link>
-        {user.isSeller ? (
-          <Link href={`/user/${user.id}/store`} passHref>
+        {user?.isSeller ? (
+          <Link href={`/user/${user?.id}/store`} passHref>
             <Button>
               <Storefront />
             </Button>

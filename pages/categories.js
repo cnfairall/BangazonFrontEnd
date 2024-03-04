@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { getCategories } from '../api/categories';
+import CategoryCard from '../components/cards/CategoryCard';
 
 export default function CategoryPage() {
   const [categories, setCategories] = useState([]);
@@ -15,11 +16,7 @@ export default function CategoryPage() {
         Product Categories
       </Typography>
       {categories.map((c) => (
-        <Container key={c.id} maxWidth="sm">
-          <Typography>
-            {c.name}
-          </Typography>
-        </Container>
+        <CategoryCard category={c} key={c.id} />
       ))}
     </>
   );

@@ -2,30 +2,26 @@
 import {
   Card, CardContent, Typography, CardActions, Button, CardMedia,
 } from '@mui/material';
-import { Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { addProductToCart } from '../../api/products';
+import { deleteProductFromCart } from '../../api/products';
 import { getCart } from '../../api/orders';
 import { useAuth } from '../../utils/context/authContext';
 
-export default function ProductCard({ product }) {
+export default function CartProductCard({ product, onUpdate }) {
   const { user } = useAuth();
   const [cart, setCart] = useState({});
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
 
   useEffect(() => {
     getCart(user[0].id).then(setCart);
   }, []);
 
-  const addToCart = () => {
+  const removeFromCart = () => {
     const payload = {
       orderId: cart.id,
       productId: product.id,
     };
-    addProductToCart(payload).then(handleShow());
+    deleteProductFromCart(payload).then(() => onUpdate());
   };
 
   return (
@@ -48,20 +44,14 @@ export default function ProductCard({ product }) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={addToCart}>Add to cart</Button>
+          <Button size="small" onClick={removeFromCart}>Remove from cart</Button>
         </CardActions>
       </Card>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Body>
-          <div>{product.title} added to your cart!</div>
-
-        </Modal.Body>
-      </Modal>
     </>
   );
 }
 
-ProductCard.propTypes = {
+CartProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
@@ -73,4 +63,5 @@ ProductCard.propTypes = {
       username: PropTypes.string,
     }),
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };

@@ -22,19 +22,19 @@ const addProductToCart = (payload) => new Promise((resolve, reject) => {
     },
     body: JSON.stringify(payload),
   }).then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
 const deleteProductFromCart = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/api/cart/remove`, {
-    method: 'DELETE',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   }).then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
