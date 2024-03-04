@@ -16,7 +16,7 @@ const getSingleProduct = (id) => new Promise((resolve, reject) => {
 
 const addProductToCart = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/api/cart/add`, {
-    method: 'PUT',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
