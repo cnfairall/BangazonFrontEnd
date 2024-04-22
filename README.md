@@ -22,7 +22,7 @@ This is the client for my first full stack app! Bangazon is an e-commerce platfo
 https://www.loom.com/share/829b90d831ea441ba2db6bea724af210
 
 ## Relevant Links
-- [Check out the frontend](https://github.com/cnfairall/BangazonFrontEnd)
+- [Check out the backend](https://github.com/cnfairall/Bangazon)
 - [Project Board](https://github.com/users/cnfairall/projects/5)
 
 ## Project Screenshots <!-- These can be inside of your project. Look at the repos from class and see how the images are included in the readme -->
